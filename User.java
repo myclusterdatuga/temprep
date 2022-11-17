@@ -8,62 +8,59 @@ package com.mycompany.mavenproject1;
  *
  * @author Pipo-Admin
  */
-import java.util.ArrayList;
+public class User {
+    //variables
+    String password, username;
+    boolean stats;
     
-public class User 
-{
-    
-    private ArrayList<User_creation>users;
-    
-    //variables of ths class
-     String name;
-    
-    public User(String Name)
+     //username and password, the bool is used to verrify if the user is admin or not(True for admin and False to normal rights)
+    public User(String Username,String Password,Boolean Stats)
     {
-            name = Name;
-            users = new ArrayList<> ();
-            
+        this.username = Username;
+        this.password = Password;
+        this.stats = Stats;
     }
-    //finding if the username and password are in the ArrayList and returnig 2 for admin permition, 1 for normal permissions and 0 if the user is not found
-    public int checker(String username)
+   
+    //check if the user is valid comparing the input to the present username, returning true if the user match
+    public boolean Checker_username(String in_username)
     {
-         for(int count=0; count < users.size(); count++)
-        {
-            User_creation currentUser = users.get(count);
-            if(currentUser.User_Checker(username) == true)
-                if(currentUser.getstats() == true)
-                    return 2;
-            return 1;
-        }
-        return(0);
+        if(in_username.equals(this.username))
+            return(true);
+        else
+            return(false);
     }
-    //modify name of a user by serching the user to be modifyed, verifing if exists with 
-    //the user_checker function iside the class User_creation and modifing the user if the return is true
-    public boolean modify_name(String new_username,String username_modify)
+    public boolean Checker_password(String in_password)
     {
-        for(int count=0; count < users.size(); count++)
-        {
-            User_creation currentUser = users.get(count);
-            if(currentUser.User_Checker(username_modify) == true)
-            {
-                currentUser.modify(new_username);
-                return true;
-            }
-        }
-        return false;
+        if(in_password.equals(this.password))
+            return(true);
+        else
+            return(false);
     }
     
-    public void user_array(User_creation temp)
+    //change username of a user
+    public void modify(String in_username)
     {
-        users.add(temp);
+        this.username = in_username;
     }
- 
-    public void getuser_array()
+    //print the username and password
+    @Override
+    public String toString()
     {
-        for(int count=0; count < users.size(); count++)
-        {
-            User_creation currentUser = users.get(count);
-            currentUser.print();
-        }
+  
+        return ("username: " + this.username +" password: " + this.password);
+    }
+    
+    //get the status of the acount (true is admin and false is standard)
+    public boolean getstats()
+    {
+        return(this.stats);
+    }
+    public String getPassword()
+    {
+        return(this.password);
+    }
+    public String getUsername()
+    {
+        return(this.username);
     }
 }

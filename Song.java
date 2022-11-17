@@ -4,35 +4,69 @@
  */
 package com.mycompany.mavenproject1;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Pipo-Admin
  */
-import java.util.ArrayList;
 public class Song {
-    private ArrayList<Song_creation>songs;
+     //variables
+    int  Records_sold, song_id;
+    double price;
+    String title, artist;
     
-     String name;
-    public Song(String Name)
+    public Song(String title,String artist,double price)
     {
-        name = Name;
-        songs = new ArrayList<Song_creation> ();
+        this.title = title;
+        this.artist = artist;
+        this.price = price;
+        this.Records_sold = 0;
+        this.song_id ++;
     }
-     public void song_array(Song_creation temp)
+    // following thw same line of thinking used in the function Cheker in the class User_creation
+    // Can not have the same Artist and Name
+    // Since you can have songs with the same Name or Artist, just check if both of them are equall
+    public boolean addSong_Checker(String Insong, String Inartist)
     {
-        songs.add(temp);
+        if(Insong.equals(this.title) && this.artist.equals(Inartist))
+            return(true);
+        else
+            return(false);
     }
-    //using the same logic as in the Checker funcrtion in the class User
-    public boolean Song_Checker(String song, String artist)
+    //Check if the song passesd as a parameter is equal to the curent song
+    public boolean Song_Checker(String Insong)
     {
-        for(int count=0; count < songs.size(); count++)
-        {
-            Song_creation currentSong = songs.get(count);
-            //returning the result of the function SongChecker
-            return(currentSong.SongChecker(song, artist));
-        }
-        return false;
+        if(Insong.equals(this.title))
+            return(true);
+        else
+            return(false);
+    }    
+     @Override
+    public String toString()
+    {
+        return ("username: " + this.title +" password: " + this.artist +"price :" + this.price +"id :"+ this.song_id );
     }
+    
+      public void incrementrecords(int records_bought) 
+        // when buying a copy, this will increment the purchase counter withe the input number
+    {
+        this.Records_sold += records_bought;
+    }
+       public String getName() // returning atributes to re-use it 
+    {
+        return this.title; 
+    }
+    public String getArtist()
+    {
+        return this.artist;
+    }
+    public int getId()
+    {
+        return this.song_id;
+    }
+     public double getPrice()
+    {
+        return this.price;
+    }
+    // the rest of the Attributes are not being returned since 
+    // they are not being used within this individual assessment
 }
